@@ -13,5 +13,15 @@ namespace StringCalculator.Tests {
 
             result.Should().Be(0);
         }
+
+        [Test]
+        public void return_same_number_for_an_input_with_one_value()
+        {
+            var calculator = new StringCalculator();
+
+            var result = calculator.Add("7");
+
+            result.Should().Be(7);
+        }
     }
 }
