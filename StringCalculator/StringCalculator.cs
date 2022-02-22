@@ -7,10 +7,10 @@ namespace StringCalculator {
         {
             if(string.IsNullOrWhiteSpace(numbers))
                 return 0;
-            var values = numbers.Split(",");
-            if (values.Length == 2)
-                return values.Sum(int.Parse);
-            return int.Parse(numbers);
+            
+            return numbers
+                .Split(",")
+                .Sum(int.Parse);
         }
     }
 }
