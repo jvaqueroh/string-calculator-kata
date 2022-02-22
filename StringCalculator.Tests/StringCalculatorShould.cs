@@ -5,11 +5,13 @@ using NUnit.Framework;
 namespace StringCalculator.Tests {
     public class StringCalculatorShould {
         [Test]
-        public void not_be_instanciable()
+        public void return_0_for_an_empty_input()
         {
-            var calculator = new StringCalculator();
+            var calulator = new StringCalculator();
 
-            Assert.Fail("Should not reach this point due a previous compilation error when calling the ctor.");
+            var result = calulator.Add("");
+
+            result.Should().Be(0);
         }
     }
 }
