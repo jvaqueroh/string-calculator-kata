@@ -43,5 +43,15 @@ namespace StringCalculator.Tests {
 
             result.Should().Be(23);
         }
+
+        [Test]
+        public void return_the_sum_for_an_input_with_commas_and_carry_returns()
+        {
+            var calculator = new StringCalculator();
+
+            var result = calculator.Add("6,7\n8,2");
+
+            result.Should().Be(23);
+        }
     }
 }
