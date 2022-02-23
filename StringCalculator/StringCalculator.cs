@@ -5,11 +5,12 @@ namespace StringCalculator {
     public class StringCalculator {
         public int Add(string numbers)
         {
-            if(string.IsNullOrWhiteSpace(numbers))
+            if (string.IsNullOrWhiteSpace(numbers))
                 return 0;
             
+            var separators = new string[]{ ",", "\n" };
             return numbers
-                .Split(",")
+                .Split(separators, StringSplitOptions.None)
                 .Sum(int.Parse);
         }
     }
