@@ -33,5 +33,15 @@ namespace StringCalculator.Tests {
             
             result.Should().Be(13);
         }
+
+        [Test]
+        public void return_the_sum_for_an_input_with_any_comma_separated_values()
+        {
+            var calculator = new StringCalculator();
+
+            var result = calculator.Add("6,7,8,2");
+
+            result.Should().Be(23);
+        }
     }
 }
