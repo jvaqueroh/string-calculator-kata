@@ -46,5 +46,12 @@ namespace StringCalculator.Tests {
             var result = calculator.Add("7\n6");
             result.Should().Be(13);
         }
+
+        [Test]
+        public void return_the_sum_for_an_input_with_custom_separator_line()
+        {
+            var result = calculator.Add("//;\n7;6");
+            result.Should().Be(13);
+        }
     }
 }
