@@ -7,7 +7,8 @@ namespace StringCalculator {
         {
             if(string.IsNullOrWhiteSpace(numbers))
                 return 0;
-            var values = numbers.Split(",");
+            var separators = new string[] { ",", "\n" };
+            var values = numbers.Split(separators, StringSplitOptions.RemoveEmptyEntries);
             return values.Sum(v => int.Parse(v));
         }
     }
