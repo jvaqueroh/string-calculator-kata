@@ -9,7 +9,7 @@ namespace StringCalculator {
                 return 0;
             var separators = new string[] { ",", "\n" };
             var values = numbers.Split(separators, StringSplitOptions.RemoveEmptyEntries);
-            return values.Sum(v => int.Parse(v));
+            return values.Sum(int.Parse);
         }
     }
 }
