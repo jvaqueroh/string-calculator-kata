@@ -34,10 +34,17 @@ namespace StringCalculator.Tests {
         }
 
         [Test]
-        public void return_the_sum_for_and_input_with_any_comma_separated_values()
+        public void return_the_sum_for_an_input_with_any_comma_separated_values()
         {
             var result = calculator.Add("7,6,8,2");
             result.Should().Be(23);
+        }
+
+        [Test]
+        public void return_the_sum_for_an_input_with_carry_return_separator()
+        {
+            var result = calculator.Add("7\n6");
+            result.Should().Be(13);
         }
     }
 }
