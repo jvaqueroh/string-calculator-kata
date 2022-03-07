@@ -11,16 +11,23 @@ namespace StringCalculator {
                 return 0;
             
             var customSeparators = defatultSeparators;
+            numbers = ProcessHeader(numbers, ref customSeparators);
+
+            var values = numbers.Split(customSeparators, StringSplitOptions.RemoveEmptyEntries);
+            return values.Sum(int.Parse);
+        }
+
+        private string ProcessHeader(string numbers, ref string[] customSeparators)
+        {
             if (numbers.StartsWith("//"))
             {
                 var lines = numbers.Split("\n");
                 var customSeparator = lines[0].Substring(2, 1);
                 customSeparators = defatultSeparators.Append(customSeparator).ToArray();
-                numbers = numbers.Substring(lines[0].Length-1);
+                numbers = numbers.Substring(lines[0].Length - 1);
             }
 
-            var values = numbers.Split(customSeparators, StringSplitOptions.RemoveEmptyEntries);
-            return values.Sum(int.Parse);
+            return numbers;
         }
     }
 }
