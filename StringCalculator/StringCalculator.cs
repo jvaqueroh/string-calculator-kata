@@ -14,6 +14,16 @@ namespace StringCalculator {
             numbers = ProcessHeader(numbers, ref customSeparators);
 
             var values = numbers.Split(customSeparators, StringSplitOptions.RemoveEmptyEntries);
+            string negativeNumbers = string.Empty;
+            foreach (var aNumber in values)
+            {
+                if(aNumber.StartsWith("-"))
+                    negativeNumbers += aNumber + ", ";
+            }
+
+            if (!string.IsNullOrWhiteSpace(negativeNumbers))
+                throw new ArgumentOutOfRangeException($"Negative numbers are not allowed: {negativeNumbers}");
+
             return values.Sum(int.Parse);
         }
 
