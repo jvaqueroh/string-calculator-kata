@@ -14,17 +14,22 @@ namespace StringCalculator {
             numbers = ProcessHeader(numbers, ref customSeparators);
 
             var values = numbers.Split(customSeparators, StringSplitOptions.RemoveEmptyEntries);
+            CheckNegativeNumbers(values);
+
+            return values.Sum(int.Parse);
+        }
+
+        private static void CheckNegativeNumbers(string[] values)
+        {
             string negativeNumbers = string.Empty;
             foreach (var aNumber in values)
             {
-                if(aNumber.StartsWith("-"))
+                if (aNumber.StartsWith("-"))
                     negativeNumbers += aNumber + ", ";
             }
 
             if (!string.IsNullOrWhiteSpace(negativeNumbers))
                 throw new ArgumentOutOfRangeException($"Negative numbers are not allowed: {negativeNumbers}");
-
-            return values.Sum(int.Parse);
         }
 
         private string ProcessHeader(string numbers, ref string[] customSeparators)
