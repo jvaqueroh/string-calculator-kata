@@ -4,12 +4,19 @@ using NUnit.Framework;
 
 namespace StringCalculator.Tests {
     public class StringCalculatorShould {
-        [Test]
-        public void not_be_instanciable()
-        {
-            var calculator = new StringCalculator();
+        private StringCalculator calculator;
 
-            Assert.Fail("Should not reach this point due a previous compilation error when calling the ctor.");
+        [SetUp()]
+        public void SetUp()
+        {
+            calculator = new StringCalculator();
+        }
+
+        [Test]
+        public void return_0_for_an_empty_string()
+        {
+            var result = calculator.Add("");
+            result.Should().Be(0);
         }
     }
 }
