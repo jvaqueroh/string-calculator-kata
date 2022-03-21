@@ -39,5 +39,12 @@ namespace StringCalculator.Tests {
             var result = calculator.Add("7,8,9");
             result.Should().Be(24);
         }
+
+        [Test]
+        public void retun_the_sum_when_numbers_are_separated_by_carry_return()
+        {
+            var result = calculator.Add("7\n8,9");
+            result.Should().Be(24);
+        }
     }
 }
