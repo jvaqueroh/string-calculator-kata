@@ -50,7 +50,7 @@ namespace StringCalculator.Tests {
         [Test]
         public void return_the_sum_when_the_input_has_a_header_with_custom_separator()
         {
-            var result = calculator.Add("//;\n7;8");
+            var result = calculator.Add("//;\n7,8");
             result.Should().Be(15);
         }
     }
