@@ -7,9 +7,8 @@ namespace StringCalculator {
         {
             if(string.IsNullOrWhiteSpace(numbers))
                 return 0;
-            
-            var numbersList = numbers.Split(",");
-            return numbersList.Sum(n => int.Parse(n));
+
+            return numbers.Split(",").Sum(int.Parse);
         }
     }
 }
