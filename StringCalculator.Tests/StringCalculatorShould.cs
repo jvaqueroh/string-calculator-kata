@@ -18,5 +18,12 @@ namespace StringCalculator.Tests {
             var result = calculator.Add("");
             result.Should().Be(0);
         }
+
+        [Test]
+        public void return_same_number_when_input_has_only_one_operator()
+        {
+            var result = calculator.Add("7");
+            result.Should().Be(7);
+        }
     }
 }
