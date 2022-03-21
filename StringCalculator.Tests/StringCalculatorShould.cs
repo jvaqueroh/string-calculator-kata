@@ -25,5 +25,12 @@ namespace StringCalculator.Tests {
             var result = calculator.Add("7");
             result.Should().Be(7);
         }
+
+        [Test]
+        public void return_the_sum_when_input_is_two_numbers_separated_by_comma()
+        {
+            var result = calculator.Add("7,8");
+            result.Should().Be(15);
+        }
     }
 }
