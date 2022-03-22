@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace StringCalculator {
@@ -7,15 +8,15 @@ namespace StringCalculator {
         {
             if(string.IsNullOrWhiteSpace(numbers))
                 return 0;
-            var separators = new[] { ',', '\n' };
+            var separators = new List<char>() { ',', '\n' };
 
             if (numbers.StartsWith("//"))
             {
-                separators = separators.Append(char.Parse(numbers.Substring(2, 1))).ToArray();
+                separators.Add(char.Parse(numbers.Substring(2, 1)));
                 numbers = numbers.Substring(4);
             }
 
-            var numbersList = numbers.Split(separators);
+            var numbersList = numbers.Split(separators.ToArray());
             return numbersList.Sum(int.Parse);
         }
     }
