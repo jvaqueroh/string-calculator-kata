@@ -13,6 +13,20 @@ namespace StringCalculator {
             numbers = ProcessHeader(numbers, separators);
 
             var numbersList = numbers.Split(separators.ToArray());
+            foreach (var aNumber in numbersList)
+            {
+                var errorMessage = "";
+                if (int.Parse(aNumber) < 0)
+                {
+                    errorMessage += aNumber + ",";
+                }
+
+                if (!string.IsNullOrWhiteSpace(errorMessage))
+                {
+                    throw new ArgumentOutOfRangeException(errorMessage);
+                }
+            }
+            
             return numbersList.Sum(int.Parse);
         }
 
