@@ -43,5 +43,13 @@ namespace StringCalculator.Tests {
 
             result.Should().Be(24);
         }
+
+        [Test]
+        public void return_the_sum_for_an_input_with_comma_or_carry_return_separators()
+        {
+            var result = calculator.Add("7\n8,9");
+
+            result.Should().Be(24);
+        }
     }
 }
