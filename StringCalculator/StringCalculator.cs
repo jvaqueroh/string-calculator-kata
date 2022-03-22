@@ -13,6 +13,13 @@ namespace StringCalculator {
             numbers = ProcessHeader(numbers, separators);
 
             var numbersList = numbers.Split(separators.ToArray());
+            CheckNegatives(numbersList);
+            
+            return numbersList.Sum(int.Parse);
+        }
+
+        private static void CheckNegatives(string[] numbersList)
+        {
             foreach (var aNumber in numbersList)
             {
                 var errorMessage = "";
@@ -26,8 +33,6 @@ namespace StringCalculator {
                     throw new ArgumentOutOfRangeException(errorMessage);
                 }
             }
-            
-            return numbersList.Sum(int.Parse);
         }
 
         private static string ProcessHeader(string numbers, List<char> separators)
