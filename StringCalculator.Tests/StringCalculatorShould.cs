@@ -51,5 +51,13 @@ namespace StringCalculator.Tests {
 
             result.Should().Be(24);
         }
+
+        [Test]
+        public void return_the_sum_for_an_input_with_custom_separator_in_a_header_line()
+        {
+            var result = calculator.Add("//;\n7;8");
+
+            result.Should().Be(15);
+        }
     }
 }
