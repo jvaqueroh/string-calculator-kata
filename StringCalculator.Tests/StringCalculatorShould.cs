@@ -59,5 +59,16 @@ namespace StringCalculator.Tests {
 
             result.Should().Be(15);
         }
+
+        [Test]
+        public void throws_exception_if_input_has_negative_numbers()
+        {
+            Func<int> call = () => calculator.Add("-7,8");
+
+            call
+                .Should()
+                .Throw<ArgumentOutOfRangeException>()
+                .WithMessage("*-7*");
+        }
     }
 }
