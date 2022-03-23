@@ -4,13 +4,16 @@ using System.Linq;
 
 namespace StringCalculator {
     public class StringCalculator {
-        public int Add(string numbers)
-        {
+        public int Add(string numbers) {
             if(string.IsNullOrWhiteSpace(numbers))
                 return 0;
+            
             var separators = new List<char>() { ',', '\n' };
+            var customSeparator = ExtractCustomSeparator(numbers);
+            if(customSeparator != null)
+                separators.Add(customSeparator.Value);
 
-            numbers = ProcessHeader(numbers, separators);
+            numbers = RemoveHeader(numbers);
 
             var numbersList = numbers.Split(separators.ToArray());
             CheckNegatives(numbersList);
@@ -20,30 +23,25 @@ namespace StringCalculator {
 
         private static void CheckNegatives(string[] numbersList)
         {
-            foreach (var aNumber in numbersList)
-            {
+            foreach (var aNumber in numbersList) {
                 var errorMessage = "";
                 if (int.Parse(aNumber) < 0)
-                {
                     errorMessage += aNumber + ",";
-                }
-
                 if (!string.IsNullOrWhiteSpace(errorMessage))
-                {
                     throw new ArgumentOutOfRangeException(errorMessage);
-                }
             }
         }
 
-        private static string ProcessHeader(string numbers, List<char> separators)
-        {
-            if (numbers.StartsWith("//"))
-            {
-                separators.Add(char.Parse(numbers.Substring(2, 1)));
+        private static string RemoveHeader(string numbers) {
+            if (numbers.StartsWith("//")) 
                 numbers = numbers.Substring(4);
-            }
-
             return numbers;
+        }
+
+        private static char? ExtractCustomSeparator(string numbers) {
+            if (numbers.StartsWith("//"))
+                return char.Parse(numbers.Substring(2, 1));
+            return null;
         }
     }
 }
