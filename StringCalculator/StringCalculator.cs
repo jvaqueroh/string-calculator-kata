@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 
 namespace StringCalculator {
@@ -18,10 +19,16 @@ namespace StringCalculator {
             var numbersList = numbers.Split(separators.ToArray());
             CheckNegatives(numbersList);
             
-            return numbersList.Sum(int.Parse);
+            IEnumerable<int> parsedNumbers = ParseNumbers(numbersList);
+            return parsedNumbers.Sum();
         }
 
-        private static void CheckNegatives(string[] numbersList)
+        private IEnumerable<int> ParseNumbers(IEnumerable<string> numbersList)
+        {
+            return numbersList.Select(int.Parse).Where(n => n <= 1000).ToList();
+        }
+
+        private void CheckNegatives(string[] numbersList)
         {
             foreach (var aNumber in numbersList) {
                 var errorMessage = "";
