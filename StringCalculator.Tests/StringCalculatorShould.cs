@@ -70,5 +70,12 @@ namespace StringCalculator.Tests {
                 .Throw<ArgumentOutOfRangeException>()
                 .WithMessage("*-7*");
         }
+
+        [Test]
+        public void ignore_numbers_greater_than_1000()
+        {
+            var result = calculator.Add("7,1001");
+            result.Should().Be(7);
+        }
     }
 }
