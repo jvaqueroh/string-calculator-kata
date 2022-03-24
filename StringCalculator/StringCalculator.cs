@@ -9,27 +9,25 @@ namespace StringCalculator {
             if(string.IsNullOrWhiteSpace(numbers))
                 return 0;
             
-            var separators = new List<char>() { ',', '\n' };
+            var separators = new List<string>() { ",", "\n" };
             var customSeparator = ExtractCustomSeparator(numbers);
-            if(customSeparator != null)
-                separators.Add(customSeparator.Value);
+            if(!string.IsNullOrWhiteSpace(customSeparator))
+                separators.Add(customSeparator);
 
             numbers = RemoveHeader(numbers);
 
-            var numbersList = numbers.Split(separators.ToArray());
+            var numbersList = numbers.Split(separators.ToArray(), StringSplitOptions.None);
             CheckNegatives(numbersList);
             
             IEnumerable<int> parsedNumbers = ParseNumbers(numbersList);
             return parsedNumbers.Sum();
         }
 
-        private IEnumerable<int> ParseNumbers(IEnumerable<string> numbersList)
-        {
+        private IEnumerable<int> ParseNumbers(IEnumerable<string> numbersList) {
             return numbersList.Select(int.Parse).Where(n => n <= 1000).ToList();
         }
 
-        private void CheckNegatives(string[] numbersList)
-        {
+        private void CheckNegatives(string[] numbersList) {
             foreach (var aNumber in numbersList) {
                 var errorMessage = "";
                 if (int.Parse(aNumber) < 0)
@@ -40,14 +38,21 @@ namespace StringCalculator {
         }
 
         private static string RemoveHeader(string numbers) {
-            if (numbers.StartsWith("//")) 
-                numbers = numbers.Substring(4);
+            if (numbers.StartsWith("//")) {
+                var endIndex = numbers.IndexOf("\n");
+                numbers = numbers.Substring(endIndex+1);
+            } 
             return numbers;
         }
 
-        private static char? ExtractCustomSeparator(string numbers) {
+        private static string ExtractCustomSeparator(string numbers) {
+            if (numbers.StartsWith("//[")) {
+                var startIndex = numbers.IndexOf("//[")+3;
+                var endIndex = numbers.IndexOf("]");
+                return numbers.Substring(startIndex, endIndex-startIndex);
+            }
             if (numbers.StartsWith("//"))
-                return char.Parse(numbers.Substring(2, 1));
+                return numbers.Substring(2, 1);
             return null;
         }
     }
