@@ -75,7 +75,16 @@ namespace StringCalculator.Tests {
         public void ignore_numbers_greater_than_1000()
         {
             var result = calculator.Add("7,1001");
+
             result.Should().Be(7);
+        }
+
+        [Test]
+        public void can_use_custom_separator_of_any_length()
+        {
+            var result = calculator.Add("//[***]\n7***8");
+
+            result.Should().Be(15);
         }
     }
 }
