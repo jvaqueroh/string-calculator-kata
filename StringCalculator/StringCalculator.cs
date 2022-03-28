@@ -18,9 +18,8 @@ namespace StringCalculator {
             numbers = RemoveHeader(numbers);
 
             var numbersList = numbers.Split(separators.ToArray(), StringSplitOptions.None);
-            CheckNegatives(numbersList);
-            
             IEnumerable<int> parsedNumbers = ParseNumbers(numbersList);
+            CheckNegatives(parsedNumbers);
             var numbersToSum = ExcludeNumbersAbove1000(parsedNumbers);
             return numbersToSum.Sum();
         }
@@ -34,10 +33,10 @@ namespace StringCalculator {
             return numbersList.Select(int.Parse);
         }
 
-        private void CheckNegatives(string[] numbersList) {
+        private void CheckNegatives(IEnumerable<int> numbersList) {
             foreach (var aNumber in numbersList) {
                 var errorMessage = "";
-                if (int.Parse(aNumber) < 0)
+                if (aNumber < 0)
                     errorMessage += aNumber + ",";
                 if (!string.IsNullOrWhiteSpace(errorMessage))
                     throw new ArgumentOutOfRangeException(errorMessage);
