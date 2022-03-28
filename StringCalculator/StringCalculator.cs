@@ -4,20 +4,29 @@ using System.Diagnostics;
 using System.Linq;
 
 namespace StringCalculator {
+    public class Separators
+    {
+        public List<string> Value { get; } = new List<string>() { ",", "\n" };
+
+        public void Add(string newSeparator) {
+            if(!string.IsNullOrWhiteSpace(newSeparator))
+                Value.Add(newSeparator);
+        }
+    }
+
     public class StringCalculator {
-        private readonly List<string> separators = new List<string>() { ",", "\n" };
+        private readonly Separators separators = new Separators();
 
         public int Add(string numbers) {
             if(string.IsNullOrWhiteSpace(numbers))
                 return 0;
 
             var customSeparator = ExtractCustomSeparator(numbers);
-            if(!string.IsNullOrWhiteSpace(customSeparator))
-                separators.Add(customSeparator);
+            separators.Add(customSeparator);
 
             numbers = RemoveHeader(numbers);
 
-            var numbersList = numbers.Split(separators.ToArray(), StringSplitOptions.None);
+            var numbersList = numbers.Split(separators.Value.ToArray(), StringSplitOptions.None);
             IEnumerable<int> parsedNumbers = ParseNumbers(numbersList);
             CheckNegatives(parsedNumbers);
             var numbersToSum = ExcludeNumbersAbove1000(parsedNumbers);
