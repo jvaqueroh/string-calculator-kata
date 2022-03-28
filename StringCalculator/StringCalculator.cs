@@ -29,9 +29,7 @@ namespace StringCalculator {
             separators.Add(customSeparator);
 
             numbers = RemoveHeader(numbers);
-
-            var numbersList = numbers.Split(separators.ToArray(), StringSplitOptions.None);
-            IEnumerable<int> parsedNumbers = ParseNumbers(numbersList);
+            IEnumerable<int> parsedNumbers = ParseNumbers(numbers);
             CheckNegatives(parsedNumbers);
             var numbersToSum = ExcludeNumbersAbove1000(parsedNumbers);
             return numbersToSum.Sum();
@@ -42,7 +40,8 @@ namespace StringCalculator {
             return parsedNumbers.Where(n => n <= 1000);
         }
 
-        private IEnumerable<int> ParseNumbers(IEnumerable<string> numbersList) {
+        private IEnumerable<int> ParseNumbers(string numbers) {
+            var numbersList = numbers.Split(separators.ToArray(), StringSplitOptions.None);
             return numbersList.Select(int.Parse);
         }
 
