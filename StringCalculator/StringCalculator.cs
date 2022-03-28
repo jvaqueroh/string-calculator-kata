@@ -6,11 +6,15 @@ using System.Linq;
 namespace StringCalculator {
     public class Separators
     {
-        public List<string> Value { get; } = new List<string>() { ",", "\n" };
+        private List<string> Value { get; } = new List<string>() { ",", "\n" };
 
         public void Add(string newSeparator) {
             if(!string.IsNullOrWhiteSpace(newSeparator))
                 Value.Add(newSeparator);
+        }
+
+        public string[] ToArray() {
+            return Value.ToArray();
         }
     }
 
@@ -26,7 +30,7 @@ namespace StringCalculator {
 
             numbers = RemoveHeader(numbers);
 
-            var numbersList = numbers.Split(separators.Value.ToArray(), StringSplitOptions.None);
+            var numbersList = numbers.Split(separators.ToArray(), StringSplitOptions.None);
             IEnumerable<int> parsedNumbers = ParseNumbers(numbersList);
             CheckNegatives(parsedNumbers);
             var numbersToSum = ExcludeNumbersAbove1000(parsedNumbers);
