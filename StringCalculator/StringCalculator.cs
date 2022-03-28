@@ -5,11 +5,12 @@ using System.Linq;
 
 namespace StringCalculator {
     public class StringCalculator {
+        private readonly List<string> separators = new List<string>() { ",", "\n" };
+
         public int Add(string numbers) {
             if(string.IsNullOrWhiteSpace(numbers))
                 return 0;
-            
-            var separators = new List<string>() { ",", "\n" };
+
             var customSeparator = ExtractCustomSeparator(numbers);
             if(!string.IsNullOrWhiteSpace(customSeparator))
                 separators.Add(customSeparator);
