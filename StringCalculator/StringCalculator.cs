@@ -21,11 +21,17 @@ namespace StringCalculator {
             CheckNegatives(numbersList);
             
             IEnumerable<int> parsedNumbers = ParseNumbers(numbersList);
-            return parsedNumbers.Sum();
+            var numbersToSum = ExcludeNumbersAbove1000(parsedNumbers);
+            return numbersToSum.Sum();
+        }
+
+        private IEnumerable<int> ExcludeNumbersAbove1000(IEnumerable<int> parsedNumbers)
+        {
+            return parsedNumbers.Where(n => n <= 1000);
         }
 
         private IEnumerable<int> ParseNumbers(IEnumerable<string> numbersList) {
-            return numbersList.Select(int.Parse).Where(n => n <= 1000).ToList();
+            return numbersList.Select(int.Parse);
         }
 
         private void CheckNegatives(string[] numbersList) {
