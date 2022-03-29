@@ -86,5 +86,13 @@ namespace StringCalculator.Tests {
 
             result.Should().Be(15);
         }
+
+        [Test]
+        public void can_use_multiple_custom_separators_of_any_length()
+        {
+            var result = calculator.Add("//[*][%]\n7*8%9");
+
+            result.Should().Be(24);
+        }
     }
 }
