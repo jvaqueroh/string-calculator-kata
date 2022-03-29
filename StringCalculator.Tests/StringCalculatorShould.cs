@@ -90,7 +90,7 @@ namespace StringCalculator.Tests {
         [Test]
         public void can_use_multiple_custom_separators_of_any_length()
         {
-            var result = calculator.Add("//[*][%]\n7*8%9");
+            var result = calculator.Add("//[***][%%%]\n7***8%%%9");
 
             result.Should().Be(24);
         }
