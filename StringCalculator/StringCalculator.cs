@@ -13,6 +13,10 @@ namespace StringCalculator {
                 Value.Add(newSeparator);
         }
 
+        public void Add(List<string> newSeparators) {
+            newSeparators.ForEach(Add);
+        }
+
         public string[] ToArray() {
             return Value.ToArray();
         }
@@ -25,7 +29,7 @@ namespace StringCalculator {
             if(string.IsNullOrWhiteSpace(numbers))
                 return 0;
 
-            var customSeparator = ExtractCustomSeparator(numbers);
+            var customSeparator = ExtractCustomSeparators(numbers);
             separators.Add(customSeparator);
 
             numbers = RemoveHeader(numbers);
@@ -63,15 +67,21 @@ namespace StringCalculator {
             return numbers;
         }
 
-        private static string ExtractCustomSeparator(string numbers) {
-            if (numbers.StartsWith("//[")) {
-                var startIndex = numbers.IndexOf("//[")+3;
-                var endIndex = numbers.IndexOf("]");
-                return numbers.Substring(startIndex, endIndex-startIndex);
+        private static List<string> ExtractCustomSeparators(string numbers) {
+            var customSeparators = new List<string>();
+            var header = numbers.Split("\n")[0];
+            if (header.StartsWith("//[")) {
+                var startIndex = header.IndexOf("[")+1;
+                while (startIndex > 1) {
+                    var endIndex = header.IndexOf("]", startIndex);
+                    customSeparators.Add(header.Substring(startIndex, endIndex-startIndex));
+                    startIndex = header.IndexOf("[", endIndex)+1;
+                }
             }
-            if (numbers.StartsWith("//"))
-                return numbers.Substring(2, 1);
-            return null;
+            if (header.StartsWith("//"))
+                customSeparators.Add(header.Substring(2, 1));
+            
+            return customSeparators;
         }
     }
 }
