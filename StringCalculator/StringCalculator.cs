@@ -40,7 +40,7 @@ namespace StringCalculator {
             }
         }
 
-        private static string RemoveHeader(string numbers) {
+        private string RemoveHeader(string numbers) {
             if (numbers.StartsWith("//")) {
                 var endIndex = numbers.IndexOf("\n");
                 numbers = numbers.Substring(endIndex+1);
@@ -48,7 +48,7 @@ namespace StringCalculator {
             return numbers;
         }
 
-        private static List<string> ExtractCustomSeparators(string numbers) {
+        private List<string> ExtractCustomSeparators(string numbers) {
             var customSeparators = new List<string>();
             var header = numbers.Split("\n")[0];
             if (header.StartsWith("//[")) {
