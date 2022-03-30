@@ -10,9 +10,8 @@ namespace StringCalculator {
             if(string.IsNullOrWhiteSpace(numbers))
                 return 0;
 
-            var customSeparator = ExtractCustomSeparators(numbers);
-            separators.Add(customSeparator);
-
+            ExtractCustomSeparators(numbers);
+            
             numbers = RemoveHeader(numbers);
             IEnumerable<int> parsedNumbers = ParseNumbers(numbers);
             CheckNegatives(parsedNumbers);
@@ -48,21 +47,18 @@ namespace StringCalculator {
             return numbers;
         }
 
-        private List<string> ExtractCustomSeparators(string numbers) {
-            var customSeparators = new List<string>();
+        private void ExtractCustomSeparators(string numbers) {
             var header = numbers.Split("\n")[0];
             if (header.StartsWith("//[")) {
                 var startIndex = header.IndexOf("[")+1;
                 while (startIndex > 1) {
                     var endIndex = header.IndexOf("]", startIndex);
-                    customSeparators.Add(header.Substring(startIndex, endIndex-startIndex));
+                    separators.Add(header.Substring(startIndex, endIndex-startIndex));
                     startIndex = header.IndexOf("[", endIndex)+1;
                 }
             }
             if (header.StartsWith("//"))
-                customSeparators.Add(header.Substring(2, 1));
-            
-            return customSeparators;
+                separators.Add(header.Substring(2, 1));
         }
     }
 }
