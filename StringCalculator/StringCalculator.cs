@@ -12,8 +12,8 @@ namespace StringCalculator {
 
             ExtractCustomSeparators(numbers);
             
-            numbers = RemoveHeader(numbers);
-            IEnumerable<int> parsedNumbers = ParseNumbers(numbers);
+            var parsedInput = ParseInput(numbers);
+            IEnumerable<int> parsedNumbers = ParseNumbers(parsedInput.Numbers);
             CheckNegatives(parsedNumbers);
             var numbersToSum = ExcludeNumbersAbove1000(parsedNumbers);
             return numbersToSum.Sum();
@@ -39,12 +39,15 @@ namespace StringCalculator {
             }
         }
 
-        private string RemoveHeader(string numbers) {
-            if (numbers.StartsWith("//")) {
-                var endIndex = numbers.IndexOf("\n");
-                numbers = numbers.Substring(endIndex+1);
+        private ParsedInput ParseInput(string rawInput) {
+            var header = string.Empty;
+            var numbers = rawInput;
+            if (rawInput.StartsWith("//")) {
+                var endIndex = rawInput.IndexOf("\n");
+                header = rawInput.Substring(0, endIndex);
+                numbers = rawInput.Substring(endIndex+1);
             } 
-            return numbers;
+            return new ParsedInput(header, numbers);
         }
 
         private void ExtractCustomSeparators(string numbers) {
