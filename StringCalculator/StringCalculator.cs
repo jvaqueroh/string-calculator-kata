@@ -10,9 +10,8 @@ namespace StringCalculator {
             if(string.IsNullOrWhiteSpace(numbers))
                 return 0;
 
-            ExtractCustomSeparators(numbers);
-            
             var parsedInput = ParseInput(numbers);
+            ExtractCustomSeparators(parsedInput.Header);
             IEnumerable<int> parsedNumbers = ParseNumbers(parsedInput.Numbers);
             CheckNegatives(parsedNumbers);
             var numbersToSum = ExcludeNumbersAbove1000(parsedNumbers);
@@ -50,8 +49,7 @@ namespace StringCalculator {
             return new ParsedInput(header, numbers);
         }
 
-        private void ExtractCustomSeparators(string numbers) {
-            var header = numbers.Split("\n")[0];
+        private void ExtractCustomSeparators(string header) {
             if (header.StartsWith("//[")) {
                 var startIndex = header.IndexOf("[")+1;
                 while (startIndex > 1) {
